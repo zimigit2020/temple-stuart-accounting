@@ -19,10 +19,6 @@ interface SpendingTabProps {
 }
 
 export default function SpendingTab({ transactions, committedTransactions, coaOptions, onReload }: SpendingTabProps) {
-  if (!transactions || !committedTransactions || !coaOptions) {
-    return <div className="p-4 text-center text-gray-400">Loading...</div>;
-  }
-
   const [selectedFilter, setSelectedFilter] = useState<{type: string, value: string} | null>(null);
   const [selectedAccount, setSelectedAccount] = useState('');
   const [selectedSubAccount, setSelectedSubAccount] = useState('');
@@ -32,6 +28,10 @@ export default function SpendingTab({ transactions, committedTransactions, coaOp
   const [selectedUncommitted, setSelectedUncommitted] = useState<string[]>([]);
   const [selectedCommitted, setSelectedCommitted] = useState<string[]>([]);
   const [expandedSection, setExpandedSection] = useState<'filters' | 'uncommitted' | 'committed' | null>('uncommitted');
+
+  if (!transactions || !committedTransactions || !coaOptions) {
+    return <div className="p-4 text-center text-gray-400">Loading...</div>;
+  }
 
   const addSubAccount = () => {
     if (newSubAccount && !subAccountsList.includes(newSubAccount)) {

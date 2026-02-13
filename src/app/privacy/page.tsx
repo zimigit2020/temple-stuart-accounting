@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | Temple Stuart',
@@ -61,7 +62,7 @@ export default function PrivacyPage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200">
-          <a href="/" className="text-sm text-[#2d1b4e] hover:underline">← Back to Home</a>
+          <Link href="/" className="text-sm text-[#2d1b4e] hover:underline">← Back to Home</Link>
         </div>
       </div>
     </div>

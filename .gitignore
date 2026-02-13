@@ -43,3 +43,24 @@ next-env.d.ts
 
 /src/generated/prisma
 scripts/
+
+# backup and scratch artifacts
+*.bak
+*.bak*
+*.backup
+*.backup*
+....
+7.2.0
+cat
+curl
+find
+git
+grep
+head
+ls
+mkdir
+node
+npm
+npx
+sed
+temple-stuart-accounting@0.1.0
