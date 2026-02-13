@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Destination {
   id: string;
@@ -18,26 +18,13 @@ interface DestinationMapProps {
   onDestinationClick?: (resortId: string, name: string) => void;
 }
 
-// Component to handle fitBounds after map loads
-function FitBoundsHandler({ map, bounds, L }: { map: any; bounds: [number, number][]; L: any }) {
-  useEffect(() => {
-    if (map && bounds.length > 0 && L) {
-      const leafletBounds = L.latLngBounds(bounds);
-      map.fitBounds(leafletBounds, { padding: [30, 30], maxZoom: 10 });
-    }
-  }, [map, bounds, L]);
-  return null;
-}
-
 export default function DestinationMap({ destinations, selectedName, onDestinationClick }: DestinationMapProps) {
   const [MapContainer, setMapContainer] = useState<any>(null);
   const [TileLayer, setTileLayer] = useState<any>(null);
   const [Marker, setMarker] = useState<any>(null);
   const [Popup, setPopup] = useState<any>(null);
-  const [useMapEvents, setUseMapEvents] = useState<any>(null);
   const [L, setL] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
-  const [map, setMap] = useState<any>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -46,7 +33,6 @@ export default function DestinationMap({ destinations, selectedName, onDestinati
       setTileLayer(() => mod.TileLayer);
       setMarker(() => mod.Marker);
       setPopup(() => mod.Popup);
-      setUseMapEvents(() => mod.useMapEvents);
     });
     import('leaflet').then((mod) => {
       setL(() => mod.default);
@@ -106,22 +92,6 @@ export default function DestinationMap({ destinations, selectedName, onDestinati
       iconAnchor: isSelected ? [14, 14] : [10, 10],
       popupAnchor: [0, -10],
     });
-  };
-
-  // Map events handler component
-  const MapController = () => {
-    const mapInstance = useMapEvents({
-      load: () => {}
-    });
-    
-    useEffect(() => {
-      if (mapInstance && bounds.length > 0) {
-        const leafletBounds = L.latLngBounds(bounds);
-        mapInstance.fitBounds(leafletBounds, { padding: [30, 30], maxZoom: 10 });
-      }
-    }, [mapInstance]);
-    
-    return null;
   };
 
   return (

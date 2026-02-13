@@ -40,7 +40,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       WHERE id = ${optionId}::uuid
     `;
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: 'Failed to update' }, { status: 500 });
   }
 }
@@ -50,7 +50,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     const { optionId } = await params;
     await prisma.$queryRaw`DELETE FROM trip_transfer_options WHERE id = ${optionId}::uuid`;
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: 'Failed to delete' }, { status: 500 });
   }
 }

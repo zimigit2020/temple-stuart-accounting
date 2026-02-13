@@ -37,7 +37,7 @@ function RSVPContent() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [trip, setTrip] = useState<Trip | null>(null);
-  const [isNewParticipant, setIsNewParticipant] = useState(true);
+  const [_isNewParticipant, setIsNewParticipant] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [declined, setDeclined] = useState(false);
 
@@ -164,7 +164,7 @@ function RSVPContent() {
       if (!res.ok) throw new Error('Failed to decline');
       setDeclined(true);
       setSubmitted(true);
-    } catch (err) {
+    } catch (_err) {
       alert('Failed to decline');
     } finally {
       setSaving(false);

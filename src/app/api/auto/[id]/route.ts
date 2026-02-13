@@ -145,7 +145,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     await prisma.$queryRaw`DELETE FROM calendar_events WHERE source = ${MODULE} AND source_id::text = ${id} AND user_id = ${user.id}`;
     await prisma.$queryRaw`DELETE FROM module_expenses WHERE id = ${id}::uuid AND user_id = ${user.id} AND module = ${MODULE}`;
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: 'Failed to delete' }, { status: 500 });
   }
 }

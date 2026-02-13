@@ -82,7 +82,7 @@ export default function CloseBooksTab() {
       } else {
         alert(`❌ Error: ${result.error || 'Failed to close books'}`);
       }
-    } catch (error) {
+    } catch (_error) {
       alert('Failed to close period');
     }
     setLoading(false);
@@ -110,7 +110,7 @@ export default function CloseBooksTab() {
       } else {
         alert('❌ Failed to reopen period');
       }
-    } catch (error) {
+    } catch (_error) {
       alert('Failed to reopen period');
     }
     setLoading(false);

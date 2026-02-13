@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { AppLayout, Card, Button } from '@/components/ui';
+import { AppLayout, Button } from '@/components/ui';
 
 const CATEGORY_GROUPS = [
   {

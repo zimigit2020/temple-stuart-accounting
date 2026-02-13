@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { AppLayout, Card, Button, Badge } from '@/components/ui';
+import { AppLayout, Button, Badge } from '@/components/ui';
 
 interface AgendaItem {
   id: string;

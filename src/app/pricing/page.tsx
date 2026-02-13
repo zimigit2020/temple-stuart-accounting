@@ -105,7 +105,7 @@ function PricingContent() {
       } else {
         alert(data.error || 'Something went wrong');
       }
-    } catch (err) {
+    } catch (_err) {
       alert('Failed to start checkout');
     } finally {
       setLoading(null);
@@ -152,7 +152,7 @@ function PricingContent() {
       if (data.url) {
         window.location.href = data.url;
       }
-    } catch (err) {
+    } catch (_err) {
       alert('Failed to open billing portal');
     } finally {
       setLoading(null);

@@ -299,7 +299,7 @@ export default function TradeCommitQueue({ onReload }: TradeCommitQueueProps) {
           const selectedInTicker = txns.filter(t => selectedIds.has(t.id)).length;
           const opens = txns.filter(t => t.positionType === 'open');
           const closes = txns.filter(t => t.positionType === 'close');
-          const unknown = txns.filter(t => t.positionType === 'unknown');
+          const _unknown = txns.filter(t => t.positionType === 'unknown');
           
           return (
             <div key={ticker} className="border rounded-lg overflow-hidden">

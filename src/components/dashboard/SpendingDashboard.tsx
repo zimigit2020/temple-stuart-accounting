@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface Transaction {
   id: string;
@@ -21,7 +21,7 @@ interface SpendingDashboardProps {
   coaOptions: any[];
 }
 
-export default function SpendingDashboard({ transactions, coaOptions }: SpendingDashboardProps) {
+export default function SpendingDashboard({ transactions, coaOptions: _coaOptions }: SpendingDashboardProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedMerchant, setSelectedMerchant] = useState<string | null>(null);
   const [selectedEntity, setSelectedEntity] = useState<string | null>(null);

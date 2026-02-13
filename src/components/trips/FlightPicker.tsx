@@ -61,7 +61,7 @@ export default function FlightPicker({
   const [editDestination, setEditDestination] = useState(destinationAirport);
   
   // Manual entry state
-  const [showManual, setShowManual] = useState(false);
+  const [_showManual, setShowManual] = useState(false);
   const [tripType, setTripType] = useState<'roundtrip' | 'oneway'>('roundtrip');
   const [manualAirline, setManualAirline] = useState('');
   const [manualPrice, setManualPrice] = useState('');

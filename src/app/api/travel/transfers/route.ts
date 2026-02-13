@@ -81,7 +81,7 @@ export async function GET(request: NextRequest) {
     let resortName = '';
     let destinationCity = cityName;
     let endAddressLine = cityName;
-    let endZipCode = zipCode;
+    let _endZipCode = zipCode;
     let endCountryCode = countryCode;
     let geoCode: { latitude: number; longitude: number } | undefined;
     

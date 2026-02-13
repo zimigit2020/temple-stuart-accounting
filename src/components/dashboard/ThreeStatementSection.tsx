@@ -26,7 +26,7 @@ interface ThreeStatementSectionProps {
 }
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const QUARTERS = [
+const _QUARTERS = [
   { label: 'Q1', months: [0, 1, 2], names: ['Jan', 'Feb', 'Mar'] },
   { label: 'Q2', months: [3, 4, 5], names: ['Apr', 'May', 'Jun'] },
   { label: 'Q3', months: [6, 7, 8], names: ['Jul', 'Aug', 'Sep'] },
@@ -106,7 +106,7 @@ export default function ThreeStatementSection({
   };
 
   const getNetIncomeQtr = () => Math.abs(getSectionQtrTotal(revenueCodes)) - Math.abs(getSectionQtrTotal(expenseCodes));
-  const getNetIncomeYTD = () => Math.abs(getSectionYTD(revenueCodes)) - Math.abs(getSectionYTD(expenseCodes));
+  const _getNetIncomeYTD = () => Math.abs(getSectionYTD(revenueCodes)) - Math.abs(getSectionYTD(expenseCodes));
 
   const drilldownTransactions = useMemo(() => {
     if (!drilldownCell) return [];

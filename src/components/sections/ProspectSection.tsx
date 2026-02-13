@@ -103,7 +103,7 @@ export default function ProspectSection() {
       } else {
         setSubmitMessage('Something went wrong. Please try again.');
       }
-    } catch (error) {
+    } catch (_error) {
       setSubmitMessage('Error submitting request. Please try again.');
     } finally {
       setIsSubmitting(false);

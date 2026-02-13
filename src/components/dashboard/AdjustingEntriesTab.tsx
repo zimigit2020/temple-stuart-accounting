@@ -120,7 +120,7 @@ export default function AdjustingEntriesTab() {
       } else {
         alert(`❌ Error: ${result.error || 'Failed to create entry'}`);
       }
-    } catch (error) {
+    } catch (_error) {
       alert('Failed to create adjusting entry');
     }
     setLoading(false);

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, Button, Badge } from '@/components/ui';
+import { Card, Button } from '@/components/ui';
 
 // Categories by activity type
 const ACTIVITY_CATEGORIES: Record<string, { value: string; label: string; icon: string }[]> = {

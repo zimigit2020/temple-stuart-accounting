@@ -214,4 +214,6 @@ Return ONLY a valid JSON array, no markdown:
   }
 }
 
-export default { grokChat, analyzePlacesWithSentiment };
+const grokExports = { grokChat, analyzePlacesWithSentiment };
+
+export default grokExports;

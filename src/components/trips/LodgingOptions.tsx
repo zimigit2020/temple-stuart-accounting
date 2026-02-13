@@ -30,7 +30,7 @@ export default function LodgingOptions({ tripId, participantCount, nights, onSel
   const [options, setOptions] = useState<LodgingOption[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [_editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState({
     url: '',
     title: '',
@@ -114,7 +114,7 @@ export default function LodgingOptions({ tripId, participantCount, nights, onSel
     loadOptions();
   };
 
-  const handleUpdate = async (optionId: string, updates: Partial<LodgingOption>) => {
+  const _handleUpdate = async (optionId: string, updates: Partial<LodgingOption>) => {
     await fetch(`/api/trips/${tripId}/lodging/${optionId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },

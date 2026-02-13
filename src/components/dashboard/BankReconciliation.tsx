@@ -66,7 +66,7 @@ export default function BankReconciliation({ accounts, transactions, reconciliat
   }, [selectedAccount, accounts]);
 
   // Get uncleared transactions for selected account
-  const unclearedTxns = useMemo(() => {
+  const _unclearedTxns = useMemo(() => {
     if (!selectedAccount) return [];
     // In a real app, you'd have a "cleared" field on transactions
     // For now, show recent transactions as potentially uncleared

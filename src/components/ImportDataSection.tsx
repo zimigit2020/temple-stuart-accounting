@@ -90,7 +90,7 @@ export function ImportDataSection({ entityId }: { entityId: string }) {
       } else {
         setSyncStatus('Sync failed');
       }
-    } catch (error) {
+    } catch (_error) {
       setSyncStatus('Sync failed: Network error');
     }
     
@@ -115,7 +115,7 @@ export function ImportDataSection({ entityId }: { entityId: string }) {
             await loadData();
             await syncCompleteData();
           }
-        } catch (error) {
+        } catch (_error) {
           setSyncStatus('Failed to connect account');
         }
       },

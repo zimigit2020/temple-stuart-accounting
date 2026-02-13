@@ -160,7 +160,7 @@ const CATEGORY_INFO: Record<string, { label: string; icon: string }> = {
   wellness: { label: 'Wellness/Gym', icon: '💆' },
 };
 
-export default function TripPlannerAI({ tripId, city, country, activity, activities = [], month, year, daysTravel, onBudgetChange, committedBudget }: Props) {
+export default function TripPlannerAI({ tripId, city, country, activity, activities = [], month, year, daysTravel, onBudgetChange, committedBudget: _committedBudget }: Props) {
   const [loading, setLoading] = useState(false);
   const [loadingCategory, setLoadingCategory] = useState<string | null>(null);
   const [completedCount, setCompletedCount] = useState(0);

@@ -223,7 +223,7 @@ IMPORTANT:
     let data: XAIResponse;
     try {
       data = JSON.parse(responseText);
-    } catch (jsonErr) {
+    } catch (_jsonErr) {
       console.error(`[GrokAgent] ${category}: API returned non-JSON (${responseText.length} chars):`);
       console.error(`[GrokAgent] Full response: ${responseText.substring(0, 2000)}`);
       throw new Error(`Grok API returned non-JSON for ${category}: "${responseText.substring(0, 100)}"`);
@@ -372,4 +372,6 @@ export async function analyzeAllCategories(options: {
   return results;
 }
 
-export default { analyzeWithLiveSearch, analyzeAllCategories };
+const grokAgentExports = { analyzeWithLiveSearch, analyzeAllCategories };
+
+export default grokAgentExports;

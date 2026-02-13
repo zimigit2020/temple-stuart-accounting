@@ -10,7 +10,7 @@ interface InvestmentsTabProps {
   onReload: () => Promise<void>;
 }
 
-export default function InvestmentsTab({ investmentTransactions, committedInvestments, onReload }: InvestmentsTabProps) {
+export default function InvestmentsTab({ investmentTransactions: _investmentTransactions, committedInvestments, onReload }: InvestmentsTabProps) {
   const [selectedCommittedInvestments, setSelectedCommittedInvestments] = useState<string[]>([]);
 
   const massUncommitInvestments = async () => {

@@ -11,7 +11,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
       ORDER BY category ASC, is_selected DESC, created_at ASC
     `;
     return NextResponse.json({ options });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: 'Failed to fetch' }, { status: 500 });
   }
 }

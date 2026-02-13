@@ -109,7 +109,7 @@ export function getStrategyLabels(ivRank: number): StrategyLabel[] {
 
 // ─── Helpers ────────────────────────────────────────────────────────
 
-function mid(bid: number | null, ask: number | null): number | null {
+function _mid(bid: number | null, ask: number | null): number | null {
   if (bid != null && ask != null) return (bid + ask) / 2;
   if (bid != null) return bid;
   if (ask != null) return ask;

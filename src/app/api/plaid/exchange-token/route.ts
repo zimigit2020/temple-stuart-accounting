@@ -52,7 +52,7 @@ export async function POST(request: Request) {
           country_codes: [CountryCode.Us]
         });
         institutionName = institutionResponse.data.institution.name;
-      } catch (e) {
+      } catch (_e) {
         console.log('Could not fetch institution name');
       }
     }

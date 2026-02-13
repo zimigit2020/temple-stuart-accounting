@@ -38,6 +38,15 @@ const eslintConfig = [
       "prefer-const": "off",
       "no-var": "off",
       "@next/next/no-assign-module-variable": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_",
+          "caughtErrorsIgnorePattern": "^_",
+          "ignoreRestSiblings": true
+        }
+      ],
     },
   },
 ];

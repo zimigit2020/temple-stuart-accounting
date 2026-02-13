@@ -43,8 +43,8 @@ const RENTAL_SITES = [
 export default function CarPicker({
   destinationName,
   destinationAirport,
-  pickupDate,
-  dropoffDate,
+  pickupDate: _pickupDate,
+  dropoffDate: _dropoffDate,
   travelers,
   days,
   selectedCar,

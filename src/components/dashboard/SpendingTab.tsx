@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Button, Badge, Card, ResponsiveTable } from '@/components/ui';
+import { useState } from 'react';
+import { Button, Badge, ResponsiveTable } from '@/components/ui';
 
 interface CoaOption {
   id: string;

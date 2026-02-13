@@ -151,7 +151,7 @@ export default function PeriodClose({ transactions, reconciliations, periodClose
           <tbody className="divide-y">
             {MONTHS.map((monthName, idx) => {
               const status = getStatus(idx);
-              const record = getCloseRecord(idx);
+              const _record = getCloseRecord(idx);
               const txnCount = txnsByMonth[idx] || 0;
               const uncatCount = uncategorizedByMonth[idx] || 0;
               const isReconciled = reconciledMonths.has(idx);

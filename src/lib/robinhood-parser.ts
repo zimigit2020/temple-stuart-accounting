@@ -227,7 +227,7 @@ class RobinhoodHistoryParser {
           i++;
           const limitPriceLine = lines[i] || '';
           const limitPriceMatch = limitPriceLine.match(/^\$?([\d.]+)$/);
-          const limitPrice = limitPriceMatch ? parseFloat(limitPriceMatch[1]) : 0;
+          const _limitPrice = limitPriceMatch ? parseFloat(limitPriceMatch[1]) : 0;
           
           let position: 'open' | 'close' = 'open';
           let price = 0;
@@ -505,7 +505,7 @@ class RobinhoodHistoryParser {
       dateGroups.get(dateKey)!.push(txn);
     }
     
-    for (const [date, txns] of dateGroups) {
+    for (const [_date, txns] of dateGroups) {
       if (txns.length < legs.length) continue;
       
       const combinations = this.getCombinations(txns, legs.length);

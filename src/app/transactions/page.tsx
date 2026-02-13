@@ -27,7 +27,7 @@ export default function TransactionsPage() {
   const [sortDirection, setSortDirection] = useState('desc');
   const [filterText, setFilterText] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
-  const router = useRouter();
+  const _router = useRouter();
 
   const fetchTransactions = useCallback(async () => {
     try {

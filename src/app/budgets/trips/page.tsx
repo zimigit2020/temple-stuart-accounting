@@ -118,7 +118,7 @@ export default function TripsPage() {
     return { count: yearTrips.length, days: totalDays, budget: totalBudget, destinations: uniqueDestinations };
   }, [committedTrips, selectedYear]);
 
-  const fmt = (n: number) => '$' + n.toLocaleString();
+  const _fmt = (n: number) => '$' + n.toLocaleString();
 
   if (loading) {
     return (

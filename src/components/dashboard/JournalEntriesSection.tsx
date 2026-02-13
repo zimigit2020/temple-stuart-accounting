@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-export function JournalEntriesSection({ entityId }: { entityId: string }) {
-  const [journalEntries] = useState<any[]>([]);
+export function JournalEntriesSection({ entityId: _entityId }: { entityId: string }) {
+  const [_journalEntries] = useState<any[]>([]);
   
   return (
     <div className="bg-white rounded-lg shadow p-6">

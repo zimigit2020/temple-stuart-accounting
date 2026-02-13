@@ -49,7 +49,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
             setCookieUser(data.user);
           }
         }
-      } catch (e) {
+      } catch (_e) {
         // No cookie auth
       } finally {
         setCheckingAuth(false);
@@ -116,7 +116,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
             {/* Navigation */}
             <nav className="hidden lg:flex items-center">
-              {navigation.map((item, idx) => {
+              {navigation.map((item, _idx) => {
                 const isActive = pathname === item.href || 
                   (item.href !== '/hub' && item.href !== '/dashboard' && pathname?.startsWith(item.href));
                 return (

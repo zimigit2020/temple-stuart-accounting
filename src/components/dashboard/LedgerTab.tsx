@@ -150,7 +150,7 @@ export default function LedgerTab() {
                     </tr>
                   </thead>
                   <tbody className="divide-y text-sm">
-                    {ledger.entries.map((entry, idx) => (
+                    {ledger.entries.map((entry, _idx) => (
                       <tr key={entry.id} className="hover:bg-gray-50">
                         <td className="px-4 py-2">{new Date(entry.date).toLocaleDateString()}</td>
                         <td className="px-4 py-2">{entry.description}</td>

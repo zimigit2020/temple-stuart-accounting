@@ -116,7 +116,7 @@ export default function DestinationSelector({
 }: Props) {
   const [resorts, setResorts] = useState<Resort[]>([]);
   const [grouped, setGrouped] = useState<Record<string, Record<string, Resort[]>>>({});
-  const [loading, setLoading] = useState(true);
+  const [_loading, setLoading] = useState(true);
   const [showPicker, setShowPicker] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 

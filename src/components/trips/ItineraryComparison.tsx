@@ -65,7 +65,7 @@ const RESORT_HOURS = {
 };
 
 export default function ItineraryComparison({
-  tripId,
+  tripId: _tripId,
   destinations,
   daysTravel,
   daysRiding,
@@ -76,8 +76,8 @@ export default function ItineraryComparison({
 }: Props) {
   const [destData, setDestData] = useState<Record<string, DestinationData>>({});
   const [loading, setLoading] = useState<Record<string, boolean>>({});
-  const [editingCell, setEditingCell] = useState<{ resortId: string; key: string } | null>(null);
-  const [editValue, setEditValue] = useState('');
+  const [_editingCell, _setEditingCell] = useState<{ resortId: string; key: string } | null>(null);
+  const [_editValue, _setEditValue] = useState('');
 
   const travelerCount = participants.length || 4;
   const homeAirport = 'LAX'; // TODO: Get from user profile

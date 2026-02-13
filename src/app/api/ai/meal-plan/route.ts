@@ -360,7 +360,7 @@ ${profile.cookingStyle === 'meal-prep' ? 'Include prepSchedule array showing wha
         if (objMatch) jsonStr = objMatch[0];
       }
       planData = JSON.parse(jsonStr.trim());
-    } catch (parseError) {
+    } catch (_parseError) {
       console.error('JSON parse error:', textContent.substring(0, 500));
       throw new Error('Failed to parse meal plan response');
     }

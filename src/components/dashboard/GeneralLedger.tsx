@@ -90,7 +90,7 @@ export default function GeneralLedger({ transactions, coaOptions, onUpdate }: Ge
     }).reverse();
   }, [filtered]);
 
-  const getCoaName = (code: string | null) => {
+  const _getCoaName = (code: string | null) => {
     if (!code) return 'Uncategorized';
     return coaOptions.find(c => c.code === code)?.name || code;
   };

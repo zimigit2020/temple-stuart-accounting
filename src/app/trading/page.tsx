@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback, Fragment } from 'react';
+import { useState, useEffect, useMemo, Fragment } from 'react';
 import { useSession } from 'next-auth/react';
 import { AppLayout } from '@/components/ui';
 import {
@@ -8,10 +8,8 @@ import {
   generateStrategies,
   buildStrikeData,
   buildCustomCard,
-  detectStrategyName,
   renderPnlSvg,
   type StrategyCard,
-  type StrategyLabel,
   type CustomLeg,
 } from '@/lib/strategy-builder';
 
@@ -131,7 +129,7 @@ export default function TradingPage() {
   // Expanded trade details
   const [expandedTrade, setExpandedTrade] = useState<string | null>(null);
 
-  const [maxTradeNum, setMaxTradeNum] = useState(0);
+  const [_maxTradeNum, setMaxTradeNum] = useState(0);
 
   // Tastytrade connection state
   const [ttConnected, setTtConnected] = useState<boolean | null>(null);
@@ -1087,7 +1085,7 @@ export default function TradingPage() {
   }, [filteredTrades]);
 
   // Equity curve data
-  const equityCurve = useMemo(() => {
+  const _equityCurve = useMemo(() => {
     const closed = filteredTrades
       .filter(t => t.status === 'CLOSED' && t.closeDate)
       .sort((a, b) => new Date(a.closeDate!).getTime() - new Date(b.closeDate!).getTime());
@@ -1192,7 +1190,7 @@ export default function TradingPage() {
 
   const fmt = (n: number) => '$' + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
   const fmtPL = (n: number) => (n >= 0 ? '+' : '-') + fmt(n);
-  const fmtPct = (n: number) => n.toFixed(1) + '%';
+  const _fmtPct = (n: number) => n.toFixed(1) + '%';
 
   const openJournalModal = (trade: Trade) => {
     const existing = journalEntries.find(e => e.tradeNum === trade.tradeNum);
@@ -1387,7 +1385,7 @@ export default function TradingPage() {
                           const monthDate = new Date(monthKey + '-01');
                           const monthName = monthDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
                           const monthTotal = days.reduce((sum, d) => sum + d.pl, 0);
-                          const tradeDays = days.filter(d => d.count > 0).length;
+                          const _tradeDays = days.filter(d => d.count > 0).length;
                           
                           return (
                             <div key={monthKey} className="flex items-start gap-3">

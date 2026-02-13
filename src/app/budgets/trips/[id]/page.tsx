@@ -106,12 +106,12 @@ export default function TripDetailPage({ params }: { params: Promise<{ id: strin
   const [activeTab, setActiveTab] = useState<TabType>('overview');
 
   // Flight booking state
-  const [originAirport, setOriginAirport] = useState("LAX");
-  const [destinationAirport, setDestinationAirport] = useState("");
+  const [originAirport, _setOriginAirport] = useState("LAX");
+  const [destinationAirport, _setDestinationAirport] = useState("");
   const [selectedFlight, setSelectedFlight] = useState<any>(null);
 
   const [tripBudget, setTripBudget] = useState<{category: string; amount: number; description: string; splitType?: string}[]>([]);
-  const [initialCosts, setInitialCosts] = useState<Record<string, Record<string, number>>>({});
+  const [_initialCosts, _setInitialCosts] = useState<Record<string, Record<string, number>>>({});
 
   // Expense form
   const [showExpenseForm, setShowExpenseForm] = useState(false);
@@ -122,7 +122,7 @@ export default function TripDetailPage({ params }: { params: Promise<{ id: strin
   const [savingExpense, setSavingExpense] = useState(false);
   const [selectedDay, setSelectedDay] = useState(1);
   const [userTier, setUserTier] = useState<string>('free');
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [_showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   useEffect(() => { loadTrip(); loadParticipants(); loadDestinations(); loadBudgetItems(); fetch("/api/auth/me").then(res => res.ok ? res.json() : null).then(data => { if (data?.user?.tier) setUserTier(data.user.tier); }); }, [id]);
 

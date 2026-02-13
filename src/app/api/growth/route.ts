@@ -17,7 +17,7 @@ export async function GET() {
       SELECT * FROM module_expenses WHERE user_id = ${user.id} AND module = ${MODULE} ORDER BY created_at DESC
     `;
     return NextResponse.json({ expenses });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: 'Failed to load' }, { status: 500 });
   }
 }

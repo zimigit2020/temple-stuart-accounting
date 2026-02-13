@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
 import Script from 'next/script';
-import { AppLayout, ResponsiveTable } from '@/components/ui';
-import UpgradePrompt from '@/components/UpgradePrompt';
+import { AppLayout } from '@/components/ui';
+import _UpgradePrompt from '@/components/UpgradePrompt';
 import SpendingTab from '@/components/dashboard/SpendingTab';
 import InvestmentsTab from '@/components/dashboard/InvestmentsTab';
 import GeneralLedger from '@/components/dashboard/GeneralLedger';

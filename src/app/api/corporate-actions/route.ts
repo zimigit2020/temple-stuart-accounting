@@ -161,7 +161,7 @@ export async function POST(request: Request) {
           }
         });
 
-        const adjustment = await tx.lot_adjustments.create({
+        const _adjustment = await tx.lot_adjustments.create({
           data: {
             id: uuidv4(),
             lot_id: lot.id,

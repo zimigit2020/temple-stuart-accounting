@@ -164,7 +164,7 @@ const ACTIVITY_CONFIG: Record<string, { title: string; columns: { key: string; l
   },
 };
 
-export default function ActivityDestinationSelector({ tripId, activity, onSelect }: Props) {
+export default function ActivityDestinationSelector({ tripId: _tripId, activity, onSelect }: Props) {
   const [destinations, setDestinations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');

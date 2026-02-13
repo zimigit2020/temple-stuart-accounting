@@ -2,7 +2,7 @@
 
 import { useState, useEffect, use } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
+import _Link from 'next/link';
 
 interface Participant {
   id: string;

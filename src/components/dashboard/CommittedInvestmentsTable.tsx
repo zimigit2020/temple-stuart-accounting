@@ -12,7 +12,7 @@ export default function CommittedInvestmentsTable({
   massUncommitInvestments
 }: CommittedInvestmentsTableProps) {
   const filteredInvestments = committedInvestments.filter(
-    (txn: any) => true
+    (_txn: any) => true
   );
 
   if (filteredInvestments.length === 0) return null;

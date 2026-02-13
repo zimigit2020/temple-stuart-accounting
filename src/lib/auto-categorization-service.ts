@@ -16,7 +16,7 @@ export class AutoCategorizationService {
   async predictCategory(
     merchantName: string | null,
     categoryPrimary: string | null,
-    amount: number
+    _amount: number
   ): Promise<CategoryPrediction | null> {
     
     // Try merchant mapping first (highest confidence)

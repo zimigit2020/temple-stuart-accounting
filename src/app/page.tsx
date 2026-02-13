@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import _Link from 'next/link';
+import _Image from 'next/image';
 import LoginBox from '@/components/LoginBox';
 
 const MODULES = [

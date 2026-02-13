@@ -37,7 +37,7 @@ export default function ClientPortalSection() {
       } else {
         setMessage(data.error || 'Something went wrong');
       }
-    } catch (error) {
+    } catch (_error) {
       setMessage('Connection error. Please try again.');
     } finally {
       setLoading(false);

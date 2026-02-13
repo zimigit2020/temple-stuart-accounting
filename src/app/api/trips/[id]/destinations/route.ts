@@ -55,7 +55,7 @@ async function getDestinationData(table: string, ids: string[]) {
   
   // For 'all' table, we need to search across all tables
   if (table === 'all') {
-    const results: any[] = [];
+    const _results: any[] = [];
     
     // Try each table and collect results
     const [

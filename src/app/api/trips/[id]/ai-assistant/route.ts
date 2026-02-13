@@ -49,7 +49,7 @@ async function enrichPlaceDetails(places: any[]): Promise<any[]> {
 // This keeps each request under the serverless function timeout.
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params: _params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const cookieStore = await cookies();
@@ -71,7 +71,7 @@ export async function POST(
       activity,
       month,
       year,
-      daysTravel,
+      _daysTravel,
       minRating = 4.0,
       minReviews = 50,
       category,

@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     let existingContent = '';
     try {
       existingContent = await fs.readFile(filePath, 'utf-8');
-    } catch (error) {
+    } catch (_error) {
       console.log('Creating new robinhood_history.txt file');
     }
 

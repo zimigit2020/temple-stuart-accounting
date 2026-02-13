@@ -67,7 +67,7 @@ export default function TripBookingFlow({
   tripId,
   destinations,
   daysTravel,
-  daysRiding,
+  daysRiding: _daysRiding,
   month,
   year,
   startDay,
@@ -119,23 +119,23 @@ export default function TripBookingFlow({
     setSelectedFlights(prev => ({ ...prev, [resortId]: flight }));
   };
 
-  const handleSelectHotel = (resortId: string, hotel: any) => {
+  const _handleSelectHotel = (resortId: string, hotel: any) => {
     setSelectedHotels(prev => ({ ...prev, [resortId]: hotel }));
   };
 
-  const handleSelectCar = (resortId: string, car: any) => {
+  const _handleSelectCar = (resortId: string, car: any) => {
     setSelectedCars(prev => ({ ...prev, [resortId]: car }));
   };
 
-  const handleSelectArrival = (resortId: string, transfer: any) => {
+  const _handleSelectArrival = (resortId: string, transfer: any) => {
     setSelectedArrivals(prev => ({ ...prev, [resortId]: transfer }));
   };
 
-  const handleSelectDeparture = (resortId: string, transfer: any) => {
+  const _handleSelectDeparture = (resortId: string, transfer: any) => {
     setSelectedDepartures(prev => ({ ...prev, [resortId]: transfer }));
   };
 
-  const handleManualCost = (resortId: string, key: string, value: number) => {
+  const _handleManualCost = (resortId: string, key: string, value: number) => {
     setManualCosts(prev => ({
       ...prev,
       [resortId]: { ...prev[resortId], [key]: value },

@@ -3,14 +3,14 @@
 import { useState, useEffect, Fragment } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { AppLayout, Card, Badge } from '@/components/ui';
+import { AppLayout } from '@/components/ui';
 
 import dynamic from 'next/dynamic';
 
-const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
-const TileLayer = dynamic(() => import('react-leaflet').then(m => m.TileLayer), { ssr: false });
-const Marker = dynamic(() => import('react-leaflet').then(m => m.Marker), { ssr: false });
-const Popup = dynamic(() => import('react-leaflet').then(m => m.Popup), { ssr: false });
+const _MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
+const _TileLayer = dynamic(() => import('react-leaflet').then(m => m.TileLayer), { ssr: false });
+const _Marker = dynamic(() => import('react-leaflet').then(m => m.Marker), { ssr: false });
+const _Popup = dynamic(() => import('react-leaflet').then(m => m.Popup), { ssr: false });
 
 import 'leaflet/dist/leaflet.css';
 
@@ -83,7 +83,7 @@ const getNomadMetrics = (destination: string | null) => {
 };
 
 // Auto-generate destination tags based on keywords
-const getDestinationTag = (destination: string | null): { label: string; color: string } => {
+const _getDestinationTag = (destination: string | null): { label: string; color: string } => {
   if (!destination) return { label: 'Adventure awaits', color: 'bg-gray-600' };
   
   const d = destination.toLowerCase();
@@ -132,13 +132,13 @@ const parseDate = (dateStr: string): Date => {
 };
 
 // Wall Street style variance - muted colors
-const getWsVarianceClass = (budget: number, actual: number) => {
+const _getWsVarianceClass = (budget: number, actual: number) => {
   if (actual === 0) return '';
   if (actual <= budget) return 'bg-emerald-50 text-emerald-700';
   return 'bg-red-50 text-red-700';
 };
 
-const getWsVarianceText = (budget: number, actual: number) => {
+const _getWsVarianceText = (budget: number, actual: number) => {
   if (actual === 0) return 'text-gray-400';
   if (actual <= budget) return 'text-emerald-700';
   return 'text-red-700';
@@ -148,8 +148,8 @@ export default function HubPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const [events, setEvents] = useState<CalendarEvent[]>([]);
-  const [summary, setSummary] = useState<CalendarSummary | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [_summary, setSummary] = useState<CalendarSummary | null>(null);
+  const [_loading, setLoading] = useState(true);
   
   const now = new Date();
   const [selectedYear, setSelectedYear] = useState(now.getFullYear());
@@ -736,7 +736,7 @@ export default function HubPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.entries(SOURCE_CONFIG).filter(([s]) => s !== 'trip').map(([source, config], idx) => {
+                  {Object.entries(SOURCE_CONFIG).filter(([s]) => s !== 'trip').map(([source, _config], idx) => {
                     const budgetTotal = Object.values(yearBudget).reduce((sum, m) => sum + (m[source] || 0), 0);
                     const actualTotal = Object.values(yearActual).reduce((sum, m) => sum + (m[source] || 0), 0);
                     return (
