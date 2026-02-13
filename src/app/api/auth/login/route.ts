@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
+import { createAuthToken } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
-    console.log('[LOGIN] Attempt for:', email);
 
     if (!email || !password) {
-      console.log('[LOGIN] Missing email or password');
       return NextResponse.json(
         { error: 'Missing email or password' },
         { status: 400 }
@@ -21,10 +20,7 @@ export async function POST(request: Request) {
       }
     });
 
-    console.log('[LOGIN] User found:', user?.email, 'ID:', user?.id);
-
     if (!user) {
-      console.log('[LOGIN] No user found for email:', email);
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
@@ -32,17 +28,14 @@ export async function POST(request: Request) {
     }
 
     const isValid = await bcrypt.compare(password, user.password);
-    console.log('[LOGIN] Password valid:', isValid);
-    
     if (!isValid) {
-      console.log('[LOGIN] Invalid password for:', email);
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       );
     }
 
-    // Create response with cookie set via headers (more reliable on Vercel)
+    const authToken = await createAuthToken(user.id, user.email);
     const response = NextResponse.json({ 
       success: true,
       user: { email: user.email, name: user.name }
@@ -50,13 +43,19 @@ export async function POST(request: Request) {
 
     response.cookies.set('userEmail', user.email, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 7,
+      path: '/',
+    });
+    response.cookies.set('auth-token', authToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 60 * 60 * 24 * 7,
       path: '/',
     });
 
-    console.log('[LOGIN] Cookie set for:', user.email);
     return response;
   } catch (error) {
     console.error('[LOGIN] Error:', error);

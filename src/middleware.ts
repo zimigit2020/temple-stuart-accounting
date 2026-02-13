@@ -24,6 +24,25 @@ function isPublic(pathname: string): boolean {
   return PUBLIC_PATHS.some(p => pathname === p || pathname.startsWith(p + '/'));
 }
 
+async function hasValidCustomAuth(request: NextRequest): Promise<boolean> {
+  const customTokenPayload = await getToken({
+    req: request,
+    secret: process.env.JWT_SECRET,
+    cookieName: 'auth-token',
+  });
+  if (!customTokenPayload || !customTokenPayload.userId) return false;
+
+  // Bind the helper cookie to JWT claims to prevent cookie tampering.
+  const userEmailCookie = request.cookies.get('userEmail')?.value;
+  if (userEmailCookie) {
+    const tokenEmail = typeof customTokenPayload.email === 'string' ? customTokenPayload.email : null;
+    if (!tokenEmail) return false;
+    if (tokenEmail.toLowerCase() !== userEmailCookie.toLowerCase()) return false;
+  }
+
+  return true;
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -32,14 +51,16 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check cookie auth (custom login)
-  const userEmail = request.cookies.get('userEmail')?.value;
+  const customAuthValid = await hasValidCustomAuth(request);
+  const nextAuthToken = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET || process.env.JWT_SECRET
+  });
 
-  // Check NextAuth session
-  const token = await getToken({ req: request, secret: process.env.JWT_SECRET });
-
-  if (!userEmail && !token) {
-    // Not authenticated — redirect to landing
+  if (!customAuthValid && !nextAuthToken) {
+    if (pathname.startsWith('/api/')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     const loginUrl = new URL('/', request.url);
     return NextResponse.redirect(loginUrl);
   }

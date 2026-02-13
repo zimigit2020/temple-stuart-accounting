@@ -1,24 +1,23 @@
 import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
 
-// Validate environment variables
-if (!process.env.PLAID_CLIENT_ID || !process.env.PLAID_SECRET) {
-  throw new Error('PLAID_CLIENT_ID and PLAID_SECRET must be set');
+const configuredEnv = (process.env.PLAID_ENV || 'production').toLowerCase();
+const PLAID_ENV = (configuredEnv in PlaidEnvironments
+  ? configuredEnv
+  : 'production') as keyof typeof PlaidEnvironments;
+
+const plaidClientId = process.env.PLAID_CLIENT_ID;
+const plaidSecret = process.env.PLAID_SECRET;
+
+if (!plaidClientId || !plaidSecret) {
+  console.warn('Plaid credentials are not configured. Plaid routes will fail until PLAID_CLIENT_ID and PLAID_SECRET are set.');
 }
-
-// Force production environment for real data
-const PLAID_ENV = 'production';
-
-console.log('Initializing Plaid client:', {
-  environment: PLAID_ENV,
-  clientId: process.env.PLAID_CLIENT_ID.substring(0, 10) + '...',
-});
 
 const configuration = new Configuration({
   basePath: PlaidEnvironments[PLAID_ENV],
   baseOptions: {
     headers: {
-      'PLAID-CLIENT-ID': process.env.PLAID_CLIENT_ID,
-      'PLAID-SECRET': process.env.PLAID_SECRET,
+      'PLAID-CLIENT-ID': plaidClientId || '',
+      'PLAID-SECRET': plaidSecret || '',
       'Plaid-Version': '2020-09-14', // Use stable API version
     },
   },

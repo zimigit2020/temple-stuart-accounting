@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { canAccess, TierConfig } from '@/lib/tiers';
+import { decode } from 'next-auth/jwt';
 
 /**
  * Get current authenticated user from cookie.
@@ -9,7 +10,32 @@ import { canAccess, TierConfig } from '@/lib/tiers';
  */
 export async function getCurrentUser() {
   const cookieStore = await cookies();
+  const authToken = cookieStore.get('auth-token')?.value;
   const userEmail = cookieStore.get('userEmail')?.value;
+
+  if (authToken && process.env.JWT_SECRET) {
+    try {
+      const payload = await decode({
+        token: authToken,
+        secret: process.env.JWT_SECRET,
+      }) as { userId?: string; email?: string } | null;
+
+      if (payload?.userId) {
+        const user = await prisma.users.findUnique({
+          where: { id: payload.userId }
+        });
+        if (user) return user;
+      }
+      if (payload?.email) {
+        const user = await prisma.users.findFirst({
+          where: { email: { equals: payload.email, mode: 'insensitive' } }
+        });
+        if (user) return user;
+      }
+    } catch {
+      return null;
+    }
+  }
 
   if (!userEmail) return null;
 

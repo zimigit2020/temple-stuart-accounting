@@ -2,10 +2,9 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import GitHubProvider from 'next-auth/providers/github';
 import { PrismaAdapter } from '@auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
 import { cookies } from 'next/headers';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
+import { createAuthToken } from '@/lib/auth';
 
 function generateId() {
   return Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -30,9 +29,10 @@ const handler = NextAuth({
         const existingUser = await prisma.users.findUnique({
           where: { email: user.email }
         });
+        let userId = existingUser?.id;
+
         if (!existingUser) {
-          // Create user in our users table
-          await prisma.users.create({
+          const createdUser = await prisma.users.create({
             data: {
               id: generateId(),
               email: user.email,
@@ -41,11 +41,22 @@ const handler = NextAuth({
               updatedAt: new Date(),
             }
           });
+          userId = createdUser.id;
+        }
+
+        if (!userId) {
+          return false;
         }
         
-        // Set the userEmail cookie for API routes
+        const authToken = await createAuthToken(userId, user.email);
         const cookieStore = await cookies();
         cookieStore.set('userEmail', user.email, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          maxAge: 60 * 60 * 24 * 30, // 30 days
+        });
+        cookieStore.set('auth-token', authToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'lax',

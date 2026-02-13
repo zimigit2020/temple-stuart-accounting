@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
+import { createAuthToken } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {
@@ -43,9 +44,16 @@ export async function POST(request: Request) {
       }
     });
 
+    const authToken = await createAuthToken(user.id, user.email);
     // Set secure cookie
     const cookieStore = await cookies();
     cookieStore.set('userEmail', user.email, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 60 * 60 * 24 * 7 // 7 days
+    });
+    cookieStore.set('auth-token', authToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',

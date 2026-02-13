@@ -47,12 +47,11 @@ export async function POST(request: Request) {
         }
       }
 
-      await prisma.$executeRawUnsafe(
-        `UPDATE transactions SET "accountCode" = $1, "subAccount" = $2 WHERE id = $3`,
-        accountCode,
-        finalSubAccount || null,
-        id
-      );
+      await prisma.$executeRaw`
+        UPDATE transactions
+        SET "accountCode" = ${accountCode}, "subAccount" = ${finalSubAccount || null}
+        WHERE id = ${id}
+      `;
       updateCount++;
     }
 

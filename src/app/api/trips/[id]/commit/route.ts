@@ -23,12 +23,12 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     console.log('Commit received:', { startDay, budgetItems });
 
     // Get the trip
-    const trip = await prisma.trips.findUnique({
-      where: { id }
+    const trip = await prisma.trips.findFirst({
+      where: { id, userId: user.id }
     });
 
     if (!trip) {
-      return NextResponse.json({ error: 'Trip not found' }, { status: 404 });
+      return NextResponse.json({ error: 'Trip not found or unauthorized' }, { status: 404 });
     }
 
     // Prevent re-committing - must uncommit first
@@ -45,7 +45,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
 
     // Delete old budget items for this trip
     await prisma.budget_line_items.deleteMany({
-      where: { tripId: id }
+      where: { tripId: id, userId: user.id }
     });
 
     // COA code mapping - Personal travel + Business cross-entity
@@ -165,14 +165,17 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         startDate,
         endDate,
         ...(destinationPhoto && { destinationPhoto }),
-        ...(latitude && { latitude }),
-        ...(longitude && { longitude })
+        ...(latitude !== null && { latitude }),
+        ...(longitude !== null && { longitude })
       }
     });
 
+    const finalLatitude = latitude !== null ? latitude : (trip.latitude !== null ? parseFloat(String(trip.latitude)) : null);
+    const finalLongitude = longitude !== null ? longitude : (trip.longitude !== null ? parseFloat(String(trip.longitude)) : null);
+
     // Delete existing calendar event if any
     await prisma.$queryRaw`
-      DELETE FROM calendar_events WHERE source = 'trip' AND source_id::text = ${id}
+      DELETE FROM calendar_events WHERE source = 'trip' AND source_id::text = ${id} AND user_id = ${user.id}
     `;
 
     // Create calendar event
@@ -184,8 +187,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         ${user.id}, 'trip', ${id}, ${trip.name}, ${trip.destination || null},
         'trip', '✈️', 'cyan',
         ${startDate}, ${endDate}, false,
-        ${trip.destination || null}, ${trip.latitude ? parseFloat(String(trip.latitude)) : null}, 
-        ${trip.longitude ? parseFloat(String(trip.longitude)) : null}, ${totalBudget}
+        ${trip.destination || null}, ${finalLatitude}, 
+        ${finalLongitude}, ${totalBudget}
       )
     `;
 
@@ -258,9 +261,13 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     }
 
     // Get trip with budget items
-    const trip = await prisma.trips.findUnique({
-      where: { id },
-      include: { budget_line_items: true }
+    const trip = await prisma.trips.findFirst({
+      where: { id, userId: user.id },
+      include: {
+        budget_line_items: {
+          where: { userId: user.id }
+        }
+      }
     });
 
     if (!trip) {
@@ -294,7 +301,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 
     // Delete budget line items
     await prisma.budget_line_items.deleteMany({
-      where: { tripId: id }
+      where: { tripId: id, userId: user.id }
     });
 
     // Reset trip status
