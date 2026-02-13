@@ -38,6 +38,8 @@ const eslintConfig = [
       "prefer-const": "off",
       "no-var": "off",
       "@next/next/no-assign-module-variable": "off",
+      "react-hooks/exhaustive-deps": "off",
+      "@next/next/no-img-element": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
